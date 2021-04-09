@@ -1,0 +1,84 @@
+library(meta)
+Dataset1<-read.csv("D:\\HDL.csv",encoding="UTF-8")
+Dataset1
+
+MetaHDL<- metacont(Total1,Mean1,SD1,Total2,Mean2,SD2,studlab=X.U.FEFF.study,
+data=Dataset1,sm="MD",comb.fixed=FALSE,comb.random=TRUE,label.e="Treatment",label.c="Control",
+byvar=subgroup,print.byvar=FALSE)
+
+jpeg("picture1.jpeg",height=1300,width=800)
+forest(MetaHDL,col.by="black")
+dev.off()
+ 
+getwd() 
+dev.new()
+
+funnel(MetaHDL,cex.lab=1,cex.main=1.5,cex.axis=1)
+title(main="General funnel plot for HDL")
+
+MetaHDL<-metacont(Total1,Mean1,SD1,Total2,Mean2,SD2,studlab=X.U.FEFF.study,data=Dataset2,sm="MD",
+comb.random=TRUE,comb.fixed=FALSE,label.e="Treatment",label.c="Control")
+
+metabias(MetaHDL,method="linreg",plotit=T,cex.lab=1,cex.main=2,cex.axis=1.5)
+title(main="Egger'plot of HDL")
+
+metainf(MetaHDL)
+forest(metainf(MetaHDL))
+
+metareg(MetaHDL,SEX. +Age+RA.duration+Mean.baseline.DAS28..CRP.U.00A0.)
+
+Dataset2<-read.csv("D:\\LDL.csv",encoding="UTF-8")
+Dataset2
+
+MetaLDL<- metacont(Total1,Mean1,SD1,Total2,Mean2,SD2,studlab=X.U.FEFF.Study,
+data=Dataset2,sm="MD",comb.fixed=FALSE,comb.random=TRUE,label.e="Treatment",label.c="Control",
+byvar=Subgroup,print.byvar=FALSE)
+
+jpeg("picture.jpeg",height=1300,width=800)
+forest(MetaLDL,col.by="black")
+dev.off()
+ 
+getwd() 
+dev.new()
+
+funnel(MetaLDL,cex.lab=1,cex.main=1.5,cex.axis=1)
+title(main="General funnel plot for LDL")
+
+MetaLDL<-metacont(Total1,Mean1,SD1,Total2,Mean2,SD2,studlab=X.U.FEFF.Study,data=Dataset2,sm="MD",
+comb.random=TRUE,comb.fixed=FALSE,label.e="Treatment",label.c="Control")
+
+metabias(MetaLDL,method="linreg",plotit=T,cex.lab=1,cex.main=2,cex.axis=1.5)
+title(main="Egger' plot of LDL")
+
+metainf(MetaLDL)
+forest(metainf(MetaLDL))
+
+metareg(MetaLDL,SEX. +Age+RA.duration+Mean.baseline.DAS28..CRP.U.00A0.)
+
+Dataset3<-read.csv("D:\\CVD.csv",encoding="UTF-8")
+Dataset3
+
+MetaCVD<- metabin(Event1,Total1,Event0,Total0,studlab=Studies,
+   data=Dataset3,sm="RR",label.e="Treatment",label.c="Control",
+   byvar=Subgrougs,print.byvar=FALSE)
+
+jpeg("picture.jpeg",height=1300,width=800)
+forest(MetaCVD, col.by="black")
+dev.off()
+
+dev.new()
+
+funnel(MetaCVD)
+title(main="General funnel plot")
+
+MetaCVD<- metabin(Event1,Total1,Event0,Total0,studlab=Studies,
+   data=Dataset3,sm="RR",label.e="Treatment",label.c="Control",comb.random=TRUE,comb.fixed=FLASE,
+   byvar=Subgrougs,print.byvar=FALSE)
+
+
+metabias(MetaCVD,method="linreg",plotit=T)
+title(main="Egger' plot")
+metainf(MetaCVD)
+forest(metainf(MetaCVD))
+
+
